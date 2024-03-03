@@ -59,3 +59,27 @@ export class WrongPasswordError extends HttpException {
     );
   }
 }
+
+export class UrlNotFoundError extends HttpException {
+  constructor() {
+    super(
+      {
+        message: 'Url not found',
+        code: 'URL_NOT_FOUND',
+      },
+      HttpStatus.BAD_REQUEST,
+    );
+  }
+}
+
+export class UrlNotAssociatedWithUserError extends HttpException {
+  constructor() {
+    super(
+      {
+        message: 'Url not associated with user',
+        code: 'URL_NOT_ASSOCIATED_WITH_USER',
+      },
+      HttpStatus.BAD_REQUEST,
+    );
+  }
+}

@@ -12,6 +12,8 @@ import { AuthGuard } from './auth/guards/auth.guard';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { UrlShortenerModule } from './url-shortener/url-shortener.module';
+import { AnalyticsModule } from './analytics/analytics.module';
 
 @Module({
   imports: [
@@ -46,6 +48,8 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
     }),
     AuthModule,
     UsersModule,
+    UrlShortenerModule,
+    AnalyticsModule,
   ],
   controllers: [AppController],
   providers: [

@@ -1,7 +1,7 @@
-import { Logger } from "@nestjs/common";
-import { passwordStrength } from "check-password-strength";
+import { Logger } from '@nestjs/common';
+import { passwordStrength } from 'check-password-strength';
 import { get } from 'lodash';
-import { BreachOfPasswordPolicyError, WeakPasswordError } from "./error";
+import { BreachOfPasswordPolicyError, WeakPasswordError } from './error';
 
 export const getErrorCodeAndMessage = (
   error: unknown,
@@ -63,4 +63,16 @@ export const validatePasswordStrength = (password: string) => {
   ) {
     throw new BreachOfPasswordPolicyError();
   }
+};
+
+export const getSanitizedUrl = (url: string) => {
+  if (url.startsWith('http://')) {
+    url = url.replace('http://', 'https://');
+  }
+
+  if (!url.startsWith('https://')) {
+    url = 'https://' + url;
+  }
+
+  return url;
 };
