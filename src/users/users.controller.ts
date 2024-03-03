@@ -13,7 +13,9 @@ import { InvalidUserError, UserAlreadyExistError, WrongPasswordError } from 'src
 import { getErrorCodeAndMessage } from 'src/utils/helper';
 import { compare } from 'bcryptjs';
 import { SignInDto } from './dto/signin.dto';
+import { SkipThrottle } from '@nestjs/throttler';
 
+@SkipThrottle()
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}

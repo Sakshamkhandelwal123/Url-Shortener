@@ -11,6 +11,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth/guards/auth.guard';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
@@ -39,6 +40,10 @@ import { UsersModule } from './users/users.module';
       autoLoadModels: true,
       synchronize: false,
     }),
+    ThrottlerModule.forRoot({
+      ttl: applicationConfig.rateLimit.ttl,
+      limit: applicationConfig.rateLimit.limit,
+    }),
     AuthModule,
     UsersModule,
   ],
@@ -46,6 +51,10 @@ import { UsersModule } from './users/users.module';
   providers: [
     AppService,
     JwtService,
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
     {
       provide: APP_GUARD,
       useClass: AuthGuard,
